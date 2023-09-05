@@ -1,12 +1,14 @@
 <div>
     <section class="entete border ">
-        <h1 >Jourvie A23</h1>
+        <h1>{{ titre }}</h1>
     </section>
 
- 
-        <app-connexion>
-        </app-connexion>
-   
 
+    <app-connexion
+      (connexionReussie)="lstTac.onConnexionReussie($event)"
+      (connexionReussie)="onConnexionReussie($event)">
+    </app-connexion>
 
+    <app-liste-taches #lstTac>
+     </app-liste-taches>
 </div>

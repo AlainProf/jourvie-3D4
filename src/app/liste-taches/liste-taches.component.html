@@ -1,0 +1,12 @@
+<section *ngIf="visible">
+   <h3>Liste des tâches du projet</h3>
+   <table class="table">
+       <tr>
+        <th>Numéro</th><th>Titre</th><th>Description</th>
+       </tr>
+
+       <tr *ngFor="let tac of tabTaches">
+         <td>{{tac.Numero}}</td><td>{{tac.Titre}}</td><td>{{tac.Description}}</td>
+       </tr>
+   </table>
+</section>

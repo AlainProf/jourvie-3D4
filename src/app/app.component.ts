@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Developpeur } from './modele/developpeur';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'jourvie-ng';
+  titre = 'Jourvie-3D4';
+
+
+  onConnexionReussie(dev:Developpeur)
+  {
+    this.titre += dev.Nom  + " projet: " + dev.NomProjet;
+
+  }
 }
