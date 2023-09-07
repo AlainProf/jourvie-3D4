@@ -1,9 +1,14 @@
+<!---------------------------------------
+   Fichier: connexion.ts
+   auteur: Alain
+   Date: 2023-08-31 
+----------------------------------------->
+
 <section *ngIf="visible">
   <h2>Connectez-vous:</h2>
 
   Matricule:<input  [(ngModel)]="devCandidat.Matricule"><br>
   Mot de passe: <input [(ngModel)]="devCandidat.MotDePasse"><br>
-  <button (click)="validerConnexion()">Se connecter</button><br>
-  <button>Créer un compte</button>
+  <button class="btn btn-primary" (click)="validerConnexion()">Se connecter</button><br>
 </section>
 

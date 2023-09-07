@@ -1,14 +1,20 @@
-<div>
-    <section class="entete border ">
+<div class="container">
+    <section class="entete row border border-warning border-5">
         <h1>{{ titre }}</h1>
     </section>
 
 
-    <app-connexion
+    <app-connexion #conn
       (connexionReussie)="lstTac.onConnexionReussie($event)"
       (connexionReussie)="onConnexionReussie($event)">
     </app-connexion>
 
-    <app-liste-taches #lstTac>
+    <app-liste-taches #lstTac 
+      (quitterLstTac)="conn.onQuitterLstTac($event)"
+      (quitterLstTac)="onQuitterLstTac($event)">
      </app-liste-taches>
+
+     <app-journal>
+
+     </app-journal>
 </div>

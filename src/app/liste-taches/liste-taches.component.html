@@ -1,12 +1,31 @@
 <section *ngIf="visible">
-   <h3>Liste des tâches du projet</h3>
-   <table class="table">
+   <article class="row {{couleurEtat}}">
+      <div class="col-5">
+        <h2>{{titre}}</h2>
+      </div> 
+      <div class="col-7">
+        <button>
+          <img width="40" src="assets/images/crudTaches.png" (click)="gestionTaches()">
+        </button>
+        <button>
+          <img width="40" src="assets/images/admin.png" (click)="ouvrirStats()">
+        </button>
+        <button>
+          <img width="40" src="assets/images/annuler.png" (click)="quitter()">
+        </button>
+    </div>
+      
+  
+  </article>
+   
+   
+   <table *ngIf="tabTaches.length > 0" class="table">
        <tr>
         <th>Numéro</th><th>Titre</th><th>Description</th>
        </tr>
 
        <tr *ngFor="let tac of tabTaches">
-         <td>{{tac.Numero}}</td><td>{{tac.Titre}}</td><td>{{tac.Description}}</td>
+         <td class="badge rounded-pill bg-primary" (click)="demarrerSessionTravail(tac)">{{tac.Numero}}</td><td>{{tac.Titre}}</td><td>{{tac.Description}}</td>
        </tr>
    </table>
 </section>

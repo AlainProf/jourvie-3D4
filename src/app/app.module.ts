@@ -6,12 +6,14 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ConnexionComponent } from './connexion/connexion.component';
 import { ListeTachesComponent } from './liste-taches/liste-taches.component';
+import { JournalComponent } from './journal/journal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ConnexionComponent,
-    ListeTachesComponent
+    ListeTachesComponent,
+    JournalComponent
   ],
   imports: [
     BrowserModule,

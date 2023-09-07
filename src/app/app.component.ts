@@ -1,3 +1,8 @@
+/*-------------------------------------
+   Fichier: app.ts
+   auteur: Alain
+   Date: 2023-08-31 
+---------------------------------------*/
 import { Component } from '@angular/core';
 import { Developpeur } from './modele/developpeur';
 
@@ -13,7 +18,12 @@ export class AppComponent {
 
   onConnexionReussie(dev:Developpeur)
   {
-    this.titre += dev.Nom  + " projet: " + dev.NomProjet;
+    this.titre = "Jourvie-3D4 " + dev.Nom  + ", projet: " + dev.NomProjet;
 
+  }
+
+  onQuitterLstTac(dev:Developpeur)
+  {
+    this.titre = "Jourvie-3D4";
   }
 }
