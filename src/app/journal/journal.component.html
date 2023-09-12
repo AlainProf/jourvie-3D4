@@ -1,0 +1,29 @@
+<div *ngIf="visible">
+   <section class="row {{developpeur.Etat}}">
+    <article *ngIf="developpeur.Etat == 'actif'" class="col-3">
+        <h2>{{statutJournal}} {{developpeur.Etat}} sur  {{sessionTravailCourante.TacheNumero}}</h2>
+      </article>
+      <article *ngIf="developpeur.Etat != 'actif'" class="col-3">
+        <h2>{{statutJournal}} {{developpeur.Etat}}</h2>
+      </article>
+
+      <article class="col-4">
+        <button>
+            <img width="40" src='assets/images/commentaire.png' (click)="saisirCommentaire()">
+            <img width="40" src='assets/images/stop.png' (click)="arreterSessionTravail()">
+            <img width="40" src='assets/images/taches_readonly.png' (click)="lectureTaches()">
+            <img width="40" src='assets/images/changerTache.png' (click)="changerTache()">
+            <img width="40" src='assets/images/admin.png' (click)="ouvrirStatistiques()">
+          </button>
+      </article>
+
+      <article class="col-5">
+        <h4>depuis {{ depuis }}</h4>
+      </article>
+
+
+   </section>
+
+
+
+</div>

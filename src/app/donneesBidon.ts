@@ -8,7 +8,8 @@ export const tabDev:Developpeur[] = [
         Matricule:'1111111',
         MotDePasse: "11",
         IdProjet:1,
-        NomProjet:'UltraSecret'
+        NomProjet:'UltraSecret',
+        Etat:'inactif'
     },
 
     {
@@ -17,7 +18,8 @@ export const tabDev:Developpeur[] = [
         Matricule:'2222222',
         MotDePasse: "11",
         IdProjet:1,
-        NomProjet:'UltraSecret'
+        NomProjet:'UltraSecret',
+        Etat:'inactif'
     },
     {
         Id : 3,
@@ -25,7 +27,8 @@ export const tabDev:Developpeur[] = [
         Matricule:'3333333',
         MotDePasse: "11",
         IdProjet:3,
-        NomProjet:'Sphinx-ter'
+        NomProjet:'Sphinx-ter',
+        Etat:'inactif'
     }
 
 ]

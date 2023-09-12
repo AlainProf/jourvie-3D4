@@ -5,4 +5,5 @@ export class Developpeur{
     MotDePasse:string="";
     IdProjet:number=0;
     NomProjet:string="";
+    Etat:string="inactif";
 }

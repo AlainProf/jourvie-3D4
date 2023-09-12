@@ -11,10 +11,11 @@
 
     <app-liste-taches #lstTac 
       (quitterLstTac)="conn.onQuitterLstTac($event)"
-      (quitterLstTac)="onQuitterLstTac($event)">
+      (quitterLstTac)="onQuitterLstTac($event)"
+      (demarrerSession)="jour.onDemarrerSessionTravail($event)">
      </app-liste-taches>
 
-     <app-journal>
+     <app-journal #jour>
 
      </app-journal>
 </div>

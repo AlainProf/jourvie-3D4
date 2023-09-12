@@ -21,6 +21,7 @@ export class ListeTachesComponent {
   dev = new Developpeur();
 
   @Output() quitterLstTac = new EventEmitter<Developpeur>();
+  @Output() demarrerSession = new EventEmitter<Tache>();
 
   tabTaches=new Array();
 
@@ -52,8 +53,9 @@ export class ListeTachesComponent {
   //---------------------------------------
   demarrerSessionTravail(tache:Tache)
   {
-    tr("Session de travail sur la tâche " + tache.Numero, true);
-
+    //tr("Session de travail sur la tâche " + tache.Numero, true);
+    this.visible = false;
+    this.demarrerSession.emit(tache);
   }
 
   //---------------------------------------
