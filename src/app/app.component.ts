@@ -14,11 +14,13 @@ import { Developpeur } from './modele/developpeur';
 export class AppComponent {
   title = 'jourvie-ng';
   titre = 'Jourvie-3D4';
+  developpeur = new Developpeur();
 
 
   onConnexionReussie(dev:Developpeur)
   {
-    this.titre = "Jourvie-3D4 " + dev.Nom  + ", projet: " + dev.NomProjet;
+    this.developpeur = dev;
+    this.titre = "Jourvie-3D4 " + dev.Nom  + ", projet: " +     this.developpeur.NomProjet;
 
   }
 

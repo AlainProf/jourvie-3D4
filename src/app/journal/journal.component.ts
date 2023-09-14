@@ -3,7 +3,7 @@
    auteur: Alain
    Date: 2023-09-12 
 ---------------------------------------*/
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Tache } from '../modele/tache';
 import { tr,formatDepuis } from '../util';
 import { Developpeur } from '../modele/developpeur';
@@ -16,11 +16,15 @@ import { SessionTravail } from '../modele/sessionTravail';
 })
 export class JournalComponent {
   visible=false;
-  developpeur=new Developpeur();
+  @Input() developpeurConnecte=new Developpeur();
+  @Output() ouvrirTache = new EventEmitter<Developpeur>();
   statutJournal="";
   tacheCourante=new Tache();
   sessionTravailCourante=new SessionTravail();
   depuis='';
+  tabSessionsTravail:SessionTravail[] = new Array();
+
+  @Output() ouvrirTacheLecture=new EventEmitter<Developpeur>();
 
   //--------------------------------------
   //
@@ -28,12 +32,14 @@ export class JournalComponent {
   onDemarrerSessionTravail(tac:Tache)
   {
     this.visible=true;
-    this.developpeur.Etat = 'actif';
+    this.developpeurConnecte.Etat = 'actif';
     this.depuis = formatDepuis(this.sessionTravailCourante.Debut)
     
     this.sessionTravailCourante.IdTache = tac.Id;
     this.sessionTravailCourante.TacheNumero = tac.Numero;
-    this.statutJournal="Journal" ;
+    this.statutJournal="Journal";
+
+    this.tabSessionsTravail.push(this.sessionTravailCourante);
   }
 
   //--------------------------------------
@@ -49,12 +55,9 @@ export class JournalComponent {
   //--------------------------------------
   arreterSessionTravail()
   {
-    tr("arr sess trav", true);
-
     this.sessionTravailCourante.Fin = new Date();
     this.depuis = formatDepuis(this.sessionTravailCourante.Fin);
-
-    this.developpeur.Etat = 'inactif';
+    this.developpeurConnecte.Etat = 'inactif';
   }
 
   //--------------------------------------
@@ -62,7 +65,8 @@ export class JournalComponent {
   //--------------------------------------
   lectureTaches()
   {
-    tr("lec tac", true);
+    this.visible=false;
+    this.ouvrirTacheLecture.emit(this.developpeurConnecte);
   }
 
   //--------------------------------------
@@ -70,7 +74,11 @@ export class JournalComponent {
   //--------------------------------------
   changerTache()
   {
-    tr("chn tac", true);
+    this.visible=false;
+    this.developpeurConnecte.Etat='inactif';
+    this.ouvrirTache.emit(this.developpeurConnecte);
+
+
   }
 
 
@@ -80,6 +88,16 @@ export class JournalComponent {
   ouvrirStatistiques()
   {
     tr("ouv sta", true);
+  }
+
+  //--------------------------------------
+  //
+  //--------------------------------------
+  onQuitterLstTac(dev:Developpeur)
+  {
+     this.visible = true;
+     this.developpeurConnecte = dev;
+
   }
 
 }

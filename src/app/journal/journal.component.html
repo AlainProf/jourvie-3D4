@@ -1,28 +1,49 @@
 <div *ngIf="visible">
-   <section class="row {{developpeur.Etat}}">
-    <article *ngIf="developpeur.Etat == 'actif'" class="col-3">
-        <h2>{{statutJournal}} {{developpeur.Etat}} sur  {{sessionTravailCourante.TacheNumero}}</h2>
+   <section class="row {{developpeurConnecte.Etat}}">
+    <article *ngIf="developpeurConnecte.Etat == 'actif'" class="col-3">
+        <h2>{{statutJournal}} {{developpeurConnecte.Etat}} sur  {{sessionTravailCourante.TacheNumero}}</h2>
       </article>
-      <article *ngIf="developpeur.Etat != 'actif'" class="col-3">
-        <h2>{{statutJournal}} {{developpeur.Etat}}</h2>
+      <article *ngIf="developpeurConnecte.Etat != 'actif'" class="col-3">
+        <h2>{{statutJournal}} {{developpeurConnecte.Etat}}</h2>
       </article>
 
       <article class="col-4">
-        <button>
-            <img width="40" src='assets/images/commentaire.png' (click)="saisirCommentaire()">
-            <img width="40" src='assets/images/stop.png' (click)="arreterSessionTravail()">
-            <img width="40" src='assets/images/taches_readonly.png' (click)="lectureTaches()">
-            <img width="40" src='assets/images/changerTache.png' (click)="changerTache()">
-            <img width="40" src='assets/images/admin.png' (click)="ouvrirStatistiques()">
-          </button>
+         <button>  <img width="40" src='assets/images/commentaire.png' (click)="saisirCommentaire()"  title="Commenter votre travail"></button>
+         <button>  <img width="40" src='assets/images/stop.png' (click)="arreterSessionTravail()" title="Arrêter votre travail"> </button>
+         <button>  <img width="40" src='assets/images/taches_readonly.png' (click)="lectureTaches()"  title="Consulter les tâches du projet"></button>
+         <button>  <img width="40" src='assets/images/changerTache.png' (click)="changerTache()"   title="Arrêter la session de travail en cours et ouvrir la liste des tâches du prjet"></button>
+         <button>  <img width="40" src='assets/images/admin.png' (click)="ouvrirStatistiques()"  title="Consulter les statistiques"></button>
       </article>
 
       <article class="col-5">
         <h4>depuis {{ depuis }}</h4>
       </article>
+   </section>
+
+
+   <section class="row border border-dark border-5">
+      <table class="table border">
+        <tr>
+          <th>Date</th>
+          <th>Heure</th>
+          <th>Tâche</th>
+          <th>Statut</th>
+          <th>Commentaire</th>
+        </tr>
+
+        <tr *ngFor="let sessTrav of tabSessionsTravail">
+          <td>{{sessTrav.Debut}}</td>
+          <td>hh</td>
+          <td>{{sessTrav.TacheNumero}}</td>
+          <td>statut</td>
+          <td></td>
+        </tr>
+      </table>
 
 
    </section>
+
+
 
 
 

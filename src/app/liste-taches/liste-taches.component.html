@@ -5,18 +5,16 @@
       </div> 
       <div class="col-7">
         <button>
-          <img width="40" src="assets/images/crudTaches.png" (click)="gestionTaches()">
+          <img width="40" src="assets/images/crudTaches.png" (click)="gestionTaches()"  title="créer et modifier les tâches du projet">
         </button>
         <button>
-          <img width="40" src="assets/images/admin.png" (click)="ouvrirStats()">
+          <img width="40" src="assets/images/admin.png" (click)="ouvrirStats()"  title="consulter statistiques">
         </button>
         <button>
-          <img width="40" src="assets/images/annuler.png" (click)="quitter()">
+          <img width="40" src="assets/images/annuler.png" (click)="retournerAuJournal()"   title="retourner au journal">
         </button>
     </div>
-      
-  
-  </article>
+   </article>
    
    
    <table *ngIf="tabTaches.length > 0" class="table">
@@ -25,7 +23,10 @@
        </tr>
 
        <tr *ngFor="let tac of tabTaches">
-         <td class="badge rounded-pill bg-primary" (click)="demarrerSessionTravail(tac)">{{tac.Numero}}</td><td>{{tac.Titre}}</td><td>{{tac.Description}}</td>
+        <td *ngIf="!lectureSeule" title="Démarrer une session de travail sur {{tac.Titre}}" class="badge rounded-pill bg-primary" (click)="demarrerSessionTravail(tac)">{{tac.Numero}}</td>
+        <td *ngIf="lectureSeule">{{tac.Numero}}</td>
+        <td>{{tac.Titre}}</td>
+         <td>{{tac.Description}}</td>
        </tr>
    </table>
 </section>

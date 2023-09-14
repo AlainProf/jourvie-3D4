@@ -10,12 +10,13 @@
     </app-connexion>
 
     <app-liste-taches #lstTac 
-      (quitterLstTac)="conn.onQuitterLstTac($event)"
-      (quitterLstTac)="onQuitterLstTac($event)"
+      (quitterLstTac)="jour.onQuitterLstTac($event)"
       (demarrerSession)="jour.onDemarrerSessionTravail($event)">
      </app-liste-taches>
 
-     <app-journal #jour>
-
+     <app-journal #jour
+       [developpeurConnecte] ="developpeur"
+       (ouvrirTacheLecture) = "lstTac.ouvrirEnLecture($event)"
+       (ouvrirTache) = "lstTac.onOuvrir($event)">
      </app-journal>
 </div>
