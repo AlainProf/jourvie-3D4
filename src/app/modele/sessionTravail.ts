@@ -3,8 +3,8 @@ export class SessionTravail{
     IdTache=0;
     TacheNumero='';
     IdDev=0;
-    Debut= new Date();
-    Fin=new Date();
+    Debut="";
+    Fin="";
     Duree=0;
     NbComments=0;
 

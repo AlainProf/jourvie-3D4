@@ -1,4 +1,6 @@
 <div *ngIf="visible">
+
+ <!-- Section du bandeau de controle -->  
    <section class="row {{developpeurConnecte.Etat}}">
     <article *ngIf="developpeurConnecte.Etat == 'actif'" class="col-3">
         <h2>{{statutJournal}} {{developpeurConnecte.Etat}} sur  {{sessionTravailCourante.TacheNumero}}</h2>
@@ -21,6 +23,28 @@
    </section>
 
 
+    <!-- Section du formulaire de commentaire -->
+    <section *ngIf="formCommentaireVisible" class="row beige">
+       <h3>Rédigez votre commentaire:</h3>
+       <form (ngSubmit)="enregistrerCommentaire()">
+         <label>Commentaire:</label>
+         <textarea name="champ_comm" [(ngModel)]="commentaire.Contenu" rows="3" cols="35">
+
+       
+       </textarea>
+         
+          <button type="submit">
+            <img width="40" src="assets/images/sauver.png">
+          </button>
+          <button>
+            <img width="40" src="assets/images/annuler.png">
+        </button>
+      </form>
+
+
+    </section>
+
+   <!-- Section du journal -->
    <section class="row border border-dark border-5">
       <table class="table border">
         <tr>
@@ -31,16 +55,14 @@
           <th>Commentaire</th>
         </tr>
 
-        <tr *ngFor="let sessTrav of tabSessionsTravail">
-          <td>{{sessTrav.Debut}}</td>
-          <td>hh</td>
-          <td>{{sessTrav.TacheNumero}}</td>
-          <td>statut</td>
+        <tr *ngFor="let fait of tabFaits">
+          <td>{{fait.Date}}</td>
+          <td>{{fait.Heure}}</td>
+          <td>{{fait.TacheNumero}}</td>
+          <td><img height="30" src='assets/images/{{fait.Type}}.png' alt="{{fait.Type}}"></td>
           <td></td>
         </tr>
       </table>
-
-
    </section>
 
 

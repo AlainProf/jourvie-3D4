@@ -11,7 +11,7 @@ export function tr(msg:string, ale=false, conso=true)
 //--------------------------------------
 //
 //--------------------------------------
-export function formatDepuis(d:Date)
+export function formatDate(d:Date)
 {
    let an = d.getFullYear();
    let mois = d.getMonth()+1;
