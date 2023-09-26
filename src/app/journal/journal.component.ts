@@ -24,6 +24,10 @@ export class JournalComponent {
 
   visible=false;
   formCommentaireVisible=false;
+  btnCommentaireVisible=false;
+  btnLectureTacheVisible=false;
+  btnArreterVisible=false;
+  btnChangerTache=false;
 
   statutJournal="";
   tacheCourante=new Tache();
@@ -43,6 +47,12 @@ export class JournalComponent {
   onDemarrerSessionTravail(tac:Tache)
   {
     this.visible=true;
+    this.btnCommentaireVisible=true;
+    this.btnLectureTacheVisible=true;
+    this.btnArreterVisible=true;
+    this.btnChangerTache=true;
+  
+
     this.developpeurConnecte.Etat = 'actif';
     this.depuis = this.sessionTravailCourante.Debut;
     
@@ -61,9 +71,30 @@ export class JournalComponent {
   //--------------------------------------
   saisirCommentaire()
   {
-    //tr("sai com", true);
+    
     this.formCommentaireVisible = true;
 
+    this.btnCommentaireVisible=false;
+    this.btnLectureTacheVisible=true;
+    this.btnArreterVisible=false;
+    this.btnChangerTache=false;
+
+  
+
+  }
+
+  //--------------------------------------
+  //
+  //--------------------------------------
+  annulerCommentaire()
+  {
+    this.formCommentaireVisible = false;
+
+    this.btnCommentaireVisible=true;
+    this.btnLectureTacheVisible=true;
+    this.btnArreterVisible=true;
+    this.btnChangerTache=true;
+    
   }
   
   //--------------------------------------
@@ -75,6 +106,12 @@ export class JournalComponent {
     this.depuis = this.sessionTravailCourante.Fin;
     this.developpeurConnecte.Etat = 'inactif';
     this.rafraichirJournal();
+
+    this.btnCommentaireVisible=false;
+    this.btnLectureTacheVisible=false;
+    this.btnArreterVisible=false;
+    this.btnChangerTache=true;
+
   }
 
   //--------------------------------------
@@ -97,7 +134,6 @@ export class JournalComponent {
 
     this.ouvrirTache.emit(this.developpeurConnecte);
 
-
   }
 
 
@@ -116,6 +152,21 @@ export class JournalComponent {
   {
      this.visible = true;
      this.developpeurConnecte = dev;
+
+     if (this.developpeurConnecte.Etat == "inactif")
+     {
+      this.btnCommentaireVisible=false;
+      this.btnLectureTacheVisible=false;
+      this.btnArreterVisible=false;
+      }
+     else
+     {
+      this.btnCommentaireVisible=true;
+      this.btnLectureTacheVisible=true;
+      this.btnArreterVisible=true;
+     }
+     this.btnChangerTache=true;
+
 
   }
 
@@ -144,12 +195,13 @@ export class JournalComponent {
 
      for(let i=0; i < this.tabCommentaires.length; i++)
      {
-         tr("Ajout d'un fait comm", true);
-         this.tabFaits.push(new Fait(this.tabSessionsTravail[i], false, this.tabCommentaires[i]));
+        // tr("Ajout d'un fait comm", true);
+         this.tabFaits.push(new Fait(this.sessionTravailCourante, false, this.tabCommentaires[i]));
      }
 
 
      this.tabFaits.sort(this.comparaisonDate);
+     this.enleverDateRedondantes();
 
   }
 
@@ -177,12 +229,42 @@ export class JournalComponent {
   enregistrerCommentaire()
   {
     //tr("Enreg comm", true);
+    this.formCommentaireVisible = false;
     this.commentaire.Horodateur = formatDate(new Date());
     this.commentaire.IdDev = this.developpeurConnecte.Id;
     this.commentaire.IdSession = this.sessionTravailCourante.Id;
 
-    tr("comm:" + this.commentaire.Contenu, true);
+    //tr("comm:" + this.commentaire.Contenu, true);
+
     this.tabCommentaires.push(this.commentaire);
+    this.commentaire = new Commentaire();
+    this.rafraichirJournal();
+
+    this.formCommentaireVisible = false;
+
+    this.btnCommentaireVisible=true;
+    this.btnLectureTacheVisible=true;
+    this.btnArreterVisible=true;
+    this.btnChangerTache=true;
+    
+  }
+
+  //--------------------------------------
+  //
+  //--------------------------------------
+  enleverDateRedondantes()
+  {
+     let dateUnique = "9999-12-31";
+     if (this.tabFaits[0] !== undefined)
+        dateUnique = this.tabFaits[0].Date;
+     
+     for(let i=1; i<this.tabFaits.length; i++)   
+     {
+        if(this.tabFaits[i].Date === dateUnique )
+          this.tabFaits[i].Date = "";
+        else
+          dateUnique = this.tabFaits[i].Date;
+     }
   }
 
 }

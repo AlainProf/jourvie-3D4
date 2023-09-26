@@ -1,4 +1,8 @@
-
+/*-------------------------------------
+   Fichier: fait.ts
+   auteur: Alain
+   Date: 2023-08-31 
+---------------------------------------*/
 import { Commentaire } from "./commentaire";
 import { SessionTravail } from "./sessionTravail";
 

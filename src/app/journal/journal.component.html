@@ -1,5 +1,9 @@
 <div *ngIf="visible">
-
+<!---------------------------------------
+   Fichier: journal.html
+   auteur: Alain
+   Date: 2023-08-31 
+----------------------------------------->
  <!-- Section du bandeau de controle -->  
    <section class="row {{developpeurConnecte.Etat}}">
     <article *ngIf="developpeurConnecte.Etat == 'actif'" class="col-3">
@@ -10,10 +14,10 @@
       </article>
 
       <article class="col-4">
-         <button>  <img width="40" src='assets/images/commentaire.png' (click)="saisirCommentaire()"  title="Commenter votre travail"></button>
-         <button>  <img width="40" src='assets/images/stop.png' (click)="arreterSessionTravail()" title="Arrêter votre travail"> </button>
-         <button>  <img width="40" src='assets/images/taches_readonly.png' (click)="lectureTaches()"  title="Consulter les tâches du projet"></button>
-         <button>  <img width="40" src='assets/images/changerTache.png' (click)="changerTache()"   title="Arrêter la session de travail en cours et ouvrir la liste des tâches du prjet"></button>
+         <button *ngIf="btnCommentaireVisible">  <img width="40" src='assets/images/commentaire.png' (click)="saisirCommentaire()"  title="Commenter votre travail"></button>
+         <button *ngIf="btnArreterVisible">  <img width="40" src='assets/images/stop.png' (click)="arreterSessionTravail()" title="Arrêter votre travail"> </button>
+         <button *ngIf="btnLectureTacheVisible">  <img width="40" src='assets/images/taches_readonly.png' (click)="lectureTaches()"  title="Consulter les tâches du projet"></button>
+         <button *ngIf="btnChangerTache">  <img width="40" src='assets/images/changerTache.png' (click)="changerTache()"   title="Arrêter la session de travail en cours et ouvrir la liste des tâches du prjet"></button>
          <button>  <img width="40" src='assets/images/admin.png' (click)="ouvrirStatistiques()"  title="Consulter les statistiques"></button>
       </article>
 
@@ -36,7 +40,7 @@
           <button type="submit">
             <img width="40" src="assets/images/sauver.png">
           </button>
-          <button>
+          <button (click)="annulerCommentaire()">
             <img width="40" src="assets/images/annuler.png">
         </button>
       </form>
@@ -60,7 +64,7 @@
           <td>{{fait.Heure}}</td>
           <td>{{fait.TacheNumero}}</td>
           <td><img height="30" src='assets/images/{{fait.Type}}.png' alt="{{fait.Type}}"></td>
-          <td></td>
+          <td>{{fait.Contenu}}</td>
         </tr>
       </table>
    </section>

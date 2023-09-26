@@ -17,6 +17,9 @@ export class AppComponent {
   developpeur = new Developpeur();
 
 
+  //---------------------------------------
+  //
+  //---------------------------------------
   onConnexionReussie(dev:Developpeur)
   {
     this.developpeur = dev;
@@ -24,6 +27,9 @@ export class AppComponent {
 
   }
 
+  //---------------------------------------
+  //
+  //---------------------------------------
   onQuitterLstTac(dev:Developpeur)
   {
     this.titre = "Jourvie-3D4";

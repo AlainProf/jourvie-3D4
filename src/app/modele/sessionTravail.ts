@@ -1,3 +1,9 @@
+/*-------------------------------------
+   Fichier: sessionTravail.ts
+   auteur: Alain
+   Date: 2023-08-31 
+---------------------------------------*/
+
 export class SessionTravail{
     Id=0;
     IdTache=0;

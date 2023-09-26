@@ -81,7 +81,7 @@ export class ConnexionComponent {
       this.visible=true;
       this.devConnecte = new Developpeur();
       this.devCandidat = new Developpeur();
-      //tr("Ah ben le dev" + dev.Nom + " a quitter les tâches", true );
+     
    }
 
 }

@@ -1,4 +1,8 @@
-import { SessionTravail } from "./sessionTravail";
+/*-------------------------------------
+   Fichier: commentaire.ts
+   auteur: Alain
+   Date: 2023-08-31 
+---------------------------------------*/
 
 export class Commentaire{
     Id=0;

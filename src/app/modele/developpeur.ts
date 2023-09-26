@@ -1,3 +1,8 @@
+/*-------------------------------------
+   Fichier: developpeur.ts
+   auteur: Alain
+   Date: 2023-08-31 
+---------------------------------------*/
 export class Developpeur{
     Id:number=0;
     Nom:string="";

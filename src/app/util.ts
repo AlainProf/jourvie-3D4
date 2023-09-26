@@ -1,3 +1,8 @@
+/*-------------------------------------
+   Fichier: util.ts
+   auteur: Alain
+   Date: 2023-08-31 
+---------------------------------------*/
 export function tr(msg:string, ale=false, conso=true)
 {
     if (ale)
