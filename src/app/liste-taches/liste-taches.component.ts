@@ -8,6 +8,7 @@ import { tabTac } from './../donneesBidon';
 import { Developpeur } from './../modele/developpeur';
 import { tr } from './../util';
 import { Tache } from '../modele/tache';
+import { JvService } from '../jv.service';
 
 @Component({
   selector: 'app-liste-taches',
@@ -25,6 +26,16 @@ export class ListeTachesComponent {
   @Output() demarrerSession = new EventEmitter<Tache>();
 
   tabTaches=new Array();
+
+
+
+  //---------------------------------------
+  //
+  //---------------------------------------
+  constructor(private jvSrv:JvService)
+  {
+
+  }
 
   //---------------------------------------
   //
@@ -69,7 +80,8 @@ export class ListeTachesComponent {
   //---------------------------------------
   chargementDeLaListeDesTaches()
   {    
-    this.tabTaches = new Array();
+    this.jvSrv.recupTaches(this.dev.IdProjet);
+    /*this.tabTaches = new Array();
     
     tabTac.forEach( tac => {
       if (tac.IdProjet == this.dev.IdProjet)
@@ -81,7 +93,7 @@ export class ListeTachesComponent {
     if (this.tabTaches.length == 0)
     {
       this.titre="aucune tâche n'est définie pour ce projet";
-    }
+    }*/
   }
   //---------------------------------------
   //

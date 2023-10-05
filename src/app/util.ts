@@ -3,6 +3,10 @@
    auteur: Alain
    Date: 2023-08-31 
 ---------------------------------------*/
+
+export const urlServeur="http://localhost/3d4/jourvie3d4-svr/";
+
+
 export function tr(msg:string, ale=false, conso=true)
 {
     if (ale)

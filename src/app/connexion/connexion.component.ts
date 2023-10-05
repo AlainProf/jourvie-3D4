@@ -8,6 +8,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { Developpeur } from './../modele/developpeur';
 import { tabDev, tabTac } from './../donneesBidon';
 import { tr } from './../util';
+import { JvService } from '../jv.service';
 
 
 @Component({
@@ -25,7 +26,7 @@ export class ConnexionComponent {
    //----------------------------------------
    //
    //----------------------------------------
-   constructor()
+   constructor(private jvSrv:JvService )
    {
 
    }
@@ -38,8 +39,25 @@ export class ConnexionComponent {
      let i;
      
     this.triche();
+    this.jvSrv.connexion(this.devCandidat.Matricule, this.devCandidat.MotDePasse).subscribe(
+      unDev =>
+      {
+         if (unDev.Nom == undefined)
+           tr("Échec de connexion...", true);
+         else
+         {
+           tr("Connexion de " + unDev.Nom, true);
+           this.devConnecte = unDev;
+           this.visible = false;
+           this.connexionReussie.emit(this.devConnecte);
+         }
+      }
+    );
+    
 
-     for(i=0; i<tabDev.length; i++)
+
+
+/*    for(i=0; i<tabDev.length; i++)
      {
         //tr("undev : " + tabDev[i].Nom) ;
         if (tabDev[i].Matricule == this.devCandidat.Matricule)
@@ -58,6 +76,8 @@ export class ConnexionComponent {
      {
         tr("Erreur de connexion", true);
      }
+
+     */
    }
 
    //----------------------------------------
