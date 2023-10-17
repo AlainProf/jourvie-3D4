@@ -10,6 +10,7 @@ import { Developpeur } from '../modele/developpeur';
 import { SessionTravail } from '../modele/sessionTravail';
 import { Fait } from '../modele/fait';
 import { Commentaire } from '../modele/commentaire';
+import { JvService } from '../jv.service';
 
 @Component({
   selector: 'app-journal',
@@ -39,7 +40,10 @@ export class JournalComponent {
   
   tabFaits:Fait[] = new Array();
 
+  constructor(public jvSrv:JvService)
+  {
 
+  }
 
   //--------------------------------------
   //
@@ -54,16 +58,25 @@ export class JournalComponent {
   
 
     this.developpeurConnecte.Etat = 'actif';
-    this.depuis = this.sessionTravailCourante.Debut;
+    this.statutJournal="Journal";
     
     this.sessionTravailCourante = new SessionTravail();
-    this.sessionTravailCourante.Debut = formatDate(new Date());
     this.sessionTravailCourante.IdTache = tac.Id;
-    this.sessionTravailCourante.TacheNumero = tac.Numero;
-    this.statutJournal="Journal";
+    this.sessionTravailCourante.IdDev = this.developpeurConnecte.Id;
 
-    this.tabSessionsTravail.push(this.sessionTravailCourante);
-    this.rafraichirJournal();
+    this.jvSrv.postSessionTravail(this.sessionTravailCourante).subscribe(
+      sessTrav => {
+        tr("trace 1 néo sess trav" + sessTrav.Debut);
+        this.sessionTravailCourante = sessTrav;
+        this.tabSessionsTravail.push(this.sessionTravailCourante);
+        this.depuis = this.sessionTravailCourante.Debut;
+        tr("depuis" + this.depuis, true);
+        this.sessionTravailCourante.TacheNumero = tac.Numero;
+        tr("trace 2");
+        this.rafraichirJournal();
+      }
+    );
+
   }
 
   //--------------------------------------

@@ -3,6 +3,7 @@
    auteur: Alain
    Date: 2023-08-31 
 ---------------------------------------*/
+import { tr } from "../util";
 import { Commentaire } from "./commentaire";
 import { SessionTravail } from "./sessionTravail";
 
@@ -22,13 +23,16 @@ export class Fait{
        let dateSplit;
        let dateHoro;
 
+       tr("Début =" + st.Debut, true);
+
        // Traitement des Faits de session
-       if (comm.Horodateur === "")
+       if (comm.Horodateur === undefined)
        {
          if (traiteDebut)
          {
            this.Type = "debut";
            dateHoro = st.Debut;
+           
          }
        
          else 
@@ -45,6 +49,7 @@ export class Fait{
            this.IdTache = st.IdTache;
            this.Type = "commentaire";
        }
+       
 
        dateSplit  = dateHoro.split(' ');
        this.Date = dateSplit[0];

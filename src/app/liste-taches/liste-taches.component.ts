@@ -4,7 +4,6 @@
    Date: 2023-08-31 
 ---------------------------------------*/
 import { Component, EventEmitter, Output } from '@angular/core';
-import { tabTac } from './../donneesBidon';
 import { Developpeur } from './../modele/developpeur';
 import { tr } from './../util';
 import { Tache } from '../modele/tache';
@@ -80,20 +79,16 @@ export class ListeTachesComponent {
   //---------------------------------------
   chargementDeLaListeDesTaches()
   {    
-    this.jvSrv.recupTaches(this.dev.IdProjet);
-    /*this.tabTaches = new Array();
-    
-    tabTac.forEach( tac => {
-      if (tac.IdProjet == this.dev.IdProjet)
-      {
-        this.tabTaches.push(tac);
+    this.jvSrv.recupTaches(this.dev.IdProjet).subscribe(
+      tabTac =>{
+        tr("on a recuperé " + tabTac.length + " tâches");
+        this.tabTaches = tabTac;
+        if (this.tabTaches.length == 0)
+        {
+          this.titre="aucune tâche n'est définie pour ce projet";
+        }
       }
-    });
-
-    if (this.tabTaches.length == 0)
-    {
-      this.titre="aucune tâche n'est définie pour ce projet";
-    }*/
+    );
   }
   //---------------------------------------
   //

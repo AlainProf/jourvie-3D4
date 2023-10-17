@@ -6,7 +6,6 @@
 
 import { Component, Output, EventEmitter } from '@angular/core';
 import { Developpeur } from './../modele/developpeur';
-import { tabDev, tabTac } from './../donneesBidon';
 import { tr } from './../util';
 import { JvService } from '../jv.service';
 
@@ -46,7 +45,7 @@ export class ConnexionComponent {
            tr("Échec de connexion...", true);
          else
          {
-           tr("Connexion de " + unDev.Nom, true);
+           tr("Connexion de " + unDev.Nom);
            this.devConnecte = unDev;
            this.visible = false;
            this.connexionReussie.emit(this.devConnecte);
