@@ -26,7 +26,7 @@ export class Fait{
        tr("Début =" + st.Debut, true);
 
        // Traitement des Faits de session
-       if (comm.Horodateur === undefined)
+       if (comm.Horodateur === "")
        {
          if (traiteDebut)
          {

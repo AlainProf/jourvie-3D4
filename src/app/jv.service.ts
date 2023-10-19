@@ -30,6 +30,26 @@ export class JvService {
     return this.http.get<Developpeur>(url);
   }
 
+  getSessionsTravail(idDev:number)
+  {
+    const url = urlServeur + "getSessionsTravail.php" + "?idDev=" + idDev;
+    tr(url);
+
+    return this.http.get<SessionTravail[]>(url);
+  }
+
+
+  //--------------------------------------
+  //
+  //--------------------------------------
+  postSessionTravail(sessTrav:SessionTravail)
+  {
+    const url = urlServeur + "postSessionTravail.php?idTache=" + sessTrav.IdTache + "&idDev=" + sessTrav.IdDev;
+    tr(url);
+
+    return this.http.get<SessionTravail>(url);
+
+  }
    //--------------------------------------
   //
   //--------------------------------------
@@ -41,16 +61,5 @@ export class JvService {
     return this.http.get<Tache[]>(url);
  }
 
-   //--------------------------------------
-  //
-  //--------------------------------------
-  postSessionTravail(sessTrav:SessionTravail)
-  {
-    const url = urlServeur + "postSessionTravail.php?idTache=" + sessTrav.IdTache + "&idDev=" + sessTrav.IdDev;
-    tr(url);
-
-    return this.http.get<SessionTravail>(url);
-
-  }
 
 }

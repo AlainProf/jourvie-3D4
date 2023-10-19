@@ -3,7 +3,7 @@
    auteur: Alain
    Date: 2023-09-12 
 ---------------------------------------*/
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { Tache } from '../modele/tache';
 import { tr,formatDate } from '../util';
 import { Developpeur } from '../modele/developpeur';
@@ -17,7 +17,7 @@ import { JvService } from '../jv.service';
   templateUrl: './journal.component.html',
   styleUrls: ['./journal.component.css']
 })
-export class JournalComponent {
+export class JournalComponent implements OnInit{
 
   @Input() developpeurConnecte=new Developpeur();
   @Output() ouvrirTache = new EventEmitter<Developpeur>();
@@ -43,6 +43,13 @@ export class JournalComponent {
   constructor(public jvSrv:JvService)
   {
 
+  }
+
+  ngOnInit(){
+    this.jvSrv.getSessionsTravail(this.developpeurConnecte.Id).subscribe()
+    {
+      
+    }
   }
 
   //--------------------------------------
@@ -201,7 +208,7 @@ export class JournalComponent {
      {
          
          this.tabFaits.push(new Fait(this.tabSessionsTravail[i]));
-         if (this.tabSessionsTravail[i].Fin != "")
+         if (this.tabSessionsTravail[i].Fin != undefined)
             this.tabFaits.push(new Fait(this.tabSessionsTravail[i], false) );
 
      }
