@@ -45,7 +45,12 @@ export class ListeTachesComponent {
     this.visible = true;
     this.dev = dev;
     this.couleurEtat = this.dev.Etat;
-    this.chargementDeLaListeDesTaches();
+
+    if (this.dev.Etat == 'inactif')
+        this.chargementDeLaListeDesTaches();
+    else
+        this.retournerAuJournal();
+               
   }
   //---------------------------------------
   //

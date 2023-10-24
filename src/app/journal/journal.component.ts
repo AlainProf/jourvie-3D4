@@ -46,10 +46,6 @@ export class JournalComponent implements OnInit{
   }
 
   ngOnInit(){
-    this.jvSrv.getSessionsTravail(this.developpeurConnecte.Id).subscribe()
-    {
-      
-    }
   }
 
   //--------------------------------------
@@ -73,13 +69,13 @@ export class JournalComponent implements OnInit{
 
     this.jvSrv.postSessionTravail(this.sessionTravailCourante).subscribe(
       sessTrav => {
-        tr("trace 1 néo sess trav" + sessTrav.Debut);
+        //tr("trace 1 néo sess trav" + sessTrav.Debut);
         this.sessionTravailCourante = sessTrav;
         this.tabSessionsTravail.push(this.sessionTravailCourante);
         this.depuis = this.sessionTravailCourante.Debut;
-        tr("depuis" + this.depuis, true);
+        //tr("depuis" + this.depuis, true);
         this.sessionTravailCourante.TacheNumero = tac.Numero;
-        tr("trace 2");
+        //tr("trace 2");
         this.rafraichirJournal();
       }
     );
@@ -122,16 +118,26 @@ export class JournalComponent implements OnInit{
   //--------------------------------------
   arreterSessionTravail()
   {
-    this.sessionTravailCourante.Fin = formatDate(new Date());
-    this.depuis = this.sessionTravailCourante.Fin;
+     this.jvSrv.putSessionTravail(this.sessionTravailCourante.Id).subscribe(
+         dateFin => 
+         {
+            if (dateFin.length == 19)
+            {
+               this.depuis = dateFin;
+               this.rafraichirJournal();
+            }
+            else
+              tr("Erreur 130 ", true)
+         }
+
+     )
+
     this.developpeurConnecte.Etat = 'inactif';
-    this.rafraichirJournal();
 
     this.btnCommentaireVisible=false;
     this.btnLectureTacheVisible=false;
     this.btnArreterVisible=false;
     this.btnChangerTache=true;
-
   }
 
   //--------------------------------------
@@ -150,7 +156,11 @@ export class JournalComponent implements OnInit{
   {
     this.visible=false;
     this.developpeurConnecte.Etat='inactif';
-    this.sessionTravailCourante.Fin = formatDate(new Date());
+
+    if (this.sessionTravailCourante.Fin == null)
+    {
+       this.arreterSessionTravail();
+    }
 
     this.ouvrirTache.emit(this.developpeurConnecte);
 
@@ -186,8 +196,7 @@ export class JournalComponent implements OnInit{
       this.btnArreterVisible=true;
      }
      this.btnChangerTache=true;
-
-
+     this.rafraichirJournal();
   }
 
   //--------------------------------------
@@ -203,26 +212,30 @@ export class JournalComponent implements OnInit{
   //--------------------------------------
   rafraichirJournal()
   {
-     this.tabFaits = new Array();
-     for(let i=0; i < this.tabSessionsTravail.length; i++)
-     {
-         
-         this.tabFaits.push(new Fait(this.tabSessionsTravail[i]));
-         if (this.tabSessionsTravail[i].Fin != undefined)
-            this.tabFaits.push(new Fait(this.tabSessionsTravail[i], false) );
+     this.jvSrv.getSessionsTravail(this.developpeurConnecte.Id).subscribe(
+       tabSessTrav => {
+         if (tabSessTrav[0] != undefined)
+         {
+             this.tabSessionsTravail = tabSessTrav;
+             this.tabFaits = new Array();
+             for(let i=0; i < this.tabSessionsTravail.length; i++)
+             {
+                 
+                 this.tabFaits.push(new Fait(this.tabSessionsTravail[i]));
+                 if (this.tabSessionsTravail[i].Fin != undefined)
+                    this.tabFaits.push(new Fait(this.tabSessionsTravail[i], false) );
+             }
 
-     }
-
-     for(let i=0; i < this.tabCommentaires.length; i++)
-     {
-        // tr("Ajout d'un fait comm", true);
-         this.tabFaits.push(new Fait(this.sessionTravailCourante, false, this.tabCommentaires[i]));
-     }
-
-
-     this.tabFaits.sort(this.comparaisonDate);
-     this.enleverDateRedondantes();
-
+             for(let i=0; i < this.tabCommentaires.length; i++)
+             {
+                // tr("Ajout d'un fait comm", true);
+                 this.tabFaits.push(new Fait(this.sessionTravailCourante, false, this.tabCommentaires[i]));
+             }
+             this.tabFaits.sort(this.comparaisonDate);
+             this.enleverDateRedondantes();
+         }
+       }
+     )
   }
 
   //--------------------------------------

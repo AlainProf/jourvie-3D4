@@ -8,6 +8,8 @@ export class SessionTravail{
     Id=0;
     IdTache=0;
     TacheNumero='';
+    TacheTitre='';
+    TacheDescription='';
     IdDev=0;
     Debut="";
     Fin="";

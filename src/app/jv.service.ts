@@ -1,6 +1,12 @@
+//------------------------------------
+// Créateur Alaibn Martel
+// Date : 2023-10-24
+// jv.service.ts
+//------------------------------------
+
 import { Injectable } from '@angular/core';
 import { tr, urlServeur } from './util';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Developpeur } from './modele/developpeur';
 import { Tache } from './modele/tache';
 import { SessionTravail } from './modele/sessionTravail';
@@ -10,19 +16,18 @@ import { SessionTravail } from './modele/sessionTravail';
 })
 export class JvService {
 
-   //--------------------------------------
+  //--------------------------------------
   //
   //--------------------------------------
-  constructor(private http:HttpClient) { 
+  constructor(private http: HttpClient) {
 
   }
 
 
-   //--------------------------------------
+  //--------------------------------------
   //
   //--------------------------------------
-  connexion(mat:string, mdp:string)
-  {
+  connexion(mat: string, mdp: string) {
     // Appel au serveur
     const url = urlServeur + "connexion.php" + "?mat=" + mat + "&mdp=" + mdp;
     tr(url);
@@ -30,36 +35,61 @@ export class JvService {
     return this.http.get<Developpeur>(url);
   }
 
-  getSessionsTravail(idDev:number)
-  {
+  //--------------------------------------
+  //
+  //--------------------------------------
+  getSessionsTravail(idDev: number) {
     const url = urlServeur + "getSessionsTravail.php" + "?idDev=" + idDev;
     tr(url);
 
     return this.http.get<SessionTravail[]>(url);
   }
 
-
   //--------------------------------------
   //
   //--------------------------------------
-  postSessionTravail(sessTrav:SessionTravail)
-  {
-    const url = urlServeur + "postSessionTravail.php?idTache=" + sessTrav.IdTache + "&idDev=" + sessTrav.IdDev;
+  postSessionTravail(sessTrav: SessionTravail) {
+    const url = urlServeur + "postSessionTravail.php";
     tr(url);
 
-    return this.http.get<SessionTravail>(url);
+    const params = new HttpParams
+      (
+        {
+          fromObject:
+          {
+            idTache: sessTrav.IdTache,
+            idDev: sessTrav.IdDev
+          }
+        });
+
+    return this.http.post<SessionTravail>(url, params);
 
   }
-   //--------------------------------------
+
+  //--------------------------------------
   //
   //--------------------------------------
-  recupTaches(idProj:number)
-  {
+  putSessionTravail(idSessTrav: number) {
+    const url = urlServeur + "putSessionTravail.php";
+    tr(url);
+
+    const params = new HttpParams({fromObject:
+    {
+      idSessTrav: idSessTrav
+    }})
+
+    return this.http.post<string>(url, params);
+  }
+
+  //--------------------------------------
+  //
+  //--------------------------------------
+  recupTaches(idProj: number) {
     const url = urlServeur + "recupTaches.php?idProj=" + idProj;
     tr(url);
 
     return this.http.get<Tache[]>(url);
- }
+  }
 
 
 }

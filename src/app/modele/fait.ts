@@ -23,7 +23,7 @@ export class Fait{
        let dateSplit;
        let dateHoro;
 
-       tr("Début =" + st.Debut, true);
+       //tr("Début =" + st.Debut, true);
 
        // Traitement des Faits de session
        if (comm.Horodateur === "")
