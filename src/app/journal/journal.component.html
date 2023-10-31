@@ -6,12 +6,14 @@
 ----------------------------------------->
  <!-- Section du bandeau de controle -->  
    <section class="row {{developpeurConnecte.Etat}}">
-    <article *ngIf="developpeurConnecte.Etat == 'actif'" class="col-3">
-        <h2>{{statutJournal}} {{developpeurConnecte.Etat}} sur  {{tabSessionsTravail[0].TacheNumero}}</h2>
+    <article *ngIf="developpeurConnecte.Etat == 'actif' ; else elseBlock " class="col-3">
+        <h2>{{statutJournal}} {{developpeurConnecte.Etat}} sur  {{sessionTravailCourante.TacheNumero}}</h2>
       </article>
-      <article *ngIf="developpeurConnecte.Etat != 'actif'" class="col-3">
+      <ng-template #elseBlock>
+      <article class="col-3">
         <h2>{{statutJournal}} {{developpeurConnecte.Etat}}</h2>
       </article>
+      </ng-template>
 
       <article class="col-4">
          <button *ngIf="btnCommentaireVisible">  <img width="40" src='assets/images/commentaire.png' (click)="saisirCommentaire()"  title="Commenter votre travail"></button>
@@ -22,7 +24,7 @@
       </article>
 
       <article class="col-5">
-        <h4>depuis {{ tabSessionsTravail[0].Debut }}</h4>
+        <h4>depuis {{ depuis }}</h4>
       </article>
    </section>
 

@@ -214,8 +214,20 @@ export class JournalComponent implements OnInit{
   {
      this.jvSrv.getSessionsTravail(this.developpeurConnecte.Id).subscribe(
        tabSessTrav => {
-         if (tabSessTrav[0] != undefined)
+         if (tabSessTrav.length != 9)
          {
+            if (this.developpeurConnecte.Etat == 'actif')    
+            {
+               this.sessionTravailCourante = tabSessTrav[0];
+               this.depuis = this.sessionTravailCourante.Debut;
+            }
+            else
+            {
+              this.depuis = tabSessTrav[0].Fin;
+            }
+          
+          
+             tr("tab des sess trav est défini:" + tabSessTrav.length + " sess");
              this.tabSessionsTravail = tabSessTrav;
              this.tabFaits = new Array();
              for(let i=0; i < this.tabSessionsTravail.length; i++)
@@ -233,6 +245,11 @@ export class JournalComponent implements OnInit{
              }
              this.tabFaits.sort(this.comparaisonDate);
              this.enleverDateRedondantes();
+         }
+         else
+         {
+          tr("tab des sess trav est UNDEF");
+
          }
        }
      )
@@ -261,6 +278,18 @@ export class JournalComponent implements OnInit{
   //--------------------------------------
   enregistrerCommentaire()
   {
+    this.commentaire.IdDev = this.developpeurConnecte.Id;
+    this.commentaire.IdSession = this.sessionTravailCourante.Id;
+    tr("tr 1", true);
+     this.jvSrv.postCommentaire(this.commentaire).subscribe(
+        idNeoComm =>
+        {
+          tr("Insertionn du comm " + idNeoComm, true);
+        }
+     );
+     tr("tr 1", true);
+
+
     //tr("Enreg comm", true);
     this.formCommentaireVisible = false;
     this.commentaire.Horodateur = formatDate(new Date());

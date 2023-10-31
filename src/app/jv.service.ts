@@ -10,6 +10,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Developpeur } from './modele/developpeur';
 import { Tache } from './modele/tache';
 import { SessionTravail } from './modele/sessionTravail';
+import { Commentaire } from './modele/commentaire';
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +44,29 @@ export class JvService {
     tr(url);
 
     return this.http.get<SessionTravail[]>(url);
+  }
+
+  
+  //--------------------------------------
+  //
+  //--------------------------------------
+  postCommentaire(comm: Commentaire) {
+    const url = urlServeur + "postCommentaire.php";
+    tr(url);
+
+    const params = new HttpParams
+      (
+        {
+          fromObject:
+          {
+            idSession: comm.IdSession,
+            idDev: comm.IdDev,
+            contenu: comm.Contenu
+          }
+        });
+
+    return this.http.post<number>(url, params);
+
   }
 
   //--------------------------------------
