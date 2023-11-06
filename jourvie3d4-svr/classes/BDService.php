@@ -1,5 +1,5 @@
 <?php
-include('./biblio/biblio.php');
+include('./biblio/biblio.php'); 
 
 
 class BDService
@@ -18,6 +18,7 @@ class BDService
         {
             echo "Erreur de Connexion<br>";
         }
+		$this->bdInterne->set_charset("UTF8");
     }
 
     //---------------------------------------
@@ -92,9 +93,9 @@ class BDService
     //---------------------------------------
     function neutralise($str)
 	{
-		echo "Brut   : $str<br>";
+		//echo "Brut   : $str<br>";
 	    $str = $this->bdInterne->real_escape_string($str); 
-	    echo "Epurée : $str<br>";
+	    //echo "Epurée : $str<br>";
 		
 		return $str;
 		

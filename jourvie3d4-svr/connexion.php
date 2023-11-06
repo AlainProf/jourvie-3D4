@@ -28,7 +28,7 @@ if (isset($tabDevs[0]))
    //fusion du nom du porjet ds les infos retournées au client    
    $tabDevs[0]['NomProjet'] = $tabNoms[0]['nom'];
    
-   $sql = "select * from sessionsTravail where idDev = " . $tabDevs[0]['Id'] . " and Fin is null order by Id desc";
+   $sql = "select * from sessionstravail where idDev = " . $tabDevs[0]['Id'] . " and Fin is null order by Id desc";
    $tabSessTrav = $maBd->selection($sql);
    
    if (isset($tabSessTrav[0]))
