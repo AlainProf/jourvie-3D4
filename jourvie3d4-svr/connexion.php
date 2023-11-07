@@ -5,14 +5,16 @@ header('Content-type:application/json');
 header('Access-Control-Allow-Origin: *');
 
 
-// Fichier responsable de la connexion avec le client Jourvie
-
-$mat= $_GET['mat'];
-$mdp = $_GET['mdp'];
-
-
 // Accès à l'API de MySQL
 $maBd = new BDService();
+
+
+// Fichier responsable de la connexion avec le client Jourvie
+
+$mat= $maBd->neutralise($_POST['mat']);
+$mdp =$maBd->neutralise( $_POST['mdp']);
+
+
 
 $sql = "select * from developpeurs where matricule='$mat' and motDePasse='$mdp'";
 
@@ -39,7 +41,7 @@ if (isset($tabDevs[0]))
    {
 	   $tabDevs[0]['Etat'] = 'inactif';
    }
-   
+   $tabDevs[0]['MotDePasse'] = '';   
    echo json_encode($tabDevs[0]);
 }
 else

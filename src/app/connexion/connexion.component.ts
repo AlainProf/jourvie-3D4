@@ -45,7 +45,7 @@ export class ConnexionComponent {
            tr("Échec de connexion...", true);
          else
          {
-           tr("Connexion de " + unDev.Nom);
+           //tr("Connexion de " + unDev.Nom);
            this.devConnecte = unDev;
            this.visible = false;
            this.connexionReussie.emit(this.devConnecte);

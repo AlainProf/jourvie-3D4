@@ -86,7 +86,7 @@ export class ListeTachesComponent {
   {    
     this.jvSrv.recupTaches(this.dev.IdProjet).subscribe(
       tabTac =>{
-        tr("on a recuperé " + tabTac.length + " tâches");
+        //tr("on a recuperé " + tabTac.length + " tâches");
         this.tabTaches = tabTac;
         if (this.tabTaches.length == 0)
         {

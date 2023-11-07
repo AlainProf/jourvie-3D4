@@ -118,7 +118,9 @@ export class JournalComponent implements OnInit{
   //--------------------------------------
   arreterSessionTravail()
   {
-     this.jvSrv.putSessionTravail(this.sessionTravailCourante.Id).subscribe(
+    if (this.developpeurConnecte.Etat == 'actif')
+    {     
+       this.jvSrv.putSessionTravail(this.sessionTravailCourante.Id).subscribe(
          dateFin => 
          {
             if (dateFin.length == 19)
@@ -129,9 +131,9 @@ export class JournalComponent implements OnInit{
             else
               tr("Erreur 130 ", true)
          }
-
-     )
-
+       )
+    }
+    
     this.developpeurConnecte.Etat = 'inactif';
 
     this.btnCommentaireVisible=false;
@@ -227,7 +229,7 @@ export class JournalComponent implements OnInit{
             }
           
           
-             tr("tab des sess trav est défini:" + tabSessTrav.length + " sess");
+             //tr("tab des sess trav est défini:" + tabSessTrav.length + " sess");
              this.tabSessionsTravail = tabSessTrav;
              this.tabFaits = new Array();
              for(let i=0; i < this.tabSessionsTravail.length; i++)
@@ -248,7 +250,7 @@ export class JournalComponent implements OnInit{
          }
          else
          {
-          tr("tab des sess trav est UNDEF");
+          //tr("tab des sess trav est UNDEF");
 
          }
        }
@@ -280,14 +282,14 @@ export class JournalComponent implements OnInit{
   {
     this.commentaire.IdDev = this.developpeurConnecte.Id;
     this.commentaire.IdSession = this.sessionTravailCourante.Id;
-    tr("tr 1", true);
+    
      this.jvSrv.postCommentaire(this.commentaire).subscribe(
         idNeoComm =>
         {
-          tr("Insertionn du comm " + idNeoComm, true);
+          tr("Insertion du comm " + idNeoComm);
         }
      );
-     tr("tr 1", true);
+     
 
 
     //tr("Enreg comm", true);

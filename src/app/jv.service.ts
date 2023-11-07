@@ -30,10 +30,21 @@ export class JvService {
   //--------------------------------------
   connexion(mat: string, mdp: string) {
     // Appel au serveur
-    const url = urlServeur + "connexion.php" + "?mat=" + mat + "&mdp=" + mdp;
+    const url = urlServeur + "connexion.php";
     tr(url);
 
-    return this.http.get<Developpeur>(url);
+    const params = new HttpParams
+    (
+      {
+        fromObject:
+        {
+          mat: mat,
+          mdp: mdp,
+        }
+      });
+
+
+    return this.http.post<Developpeur>(url, params);
   }
 
   //--------------------------------------
