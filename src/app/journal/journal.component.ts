@@ -126,6 +126,7 @@ export class JournalComponent implements OnInit{
             if (dateFin.length == 19)
             {
                this.depuis = dateFin;
+               this.sessionTravailCourante.Fin = dateFin;
                this.rafraichirJournal();
             }
             else
@@ -157,13 +158,13 @@ export class JournalComponent implements OnInit{
   changerTache()
   {
     this.visible=false;
-    this.developpeurConnecte.Etat='inactif';
+    
 
     if (this.sessionTravailCourante.Fin == null)
     {
        this.arreterSessionTravail();
     }
-
+    this.developpeurConnecte.Etat='inactif';
     this.ouvrirTache.emit(this.developpeurConnecte);
 
   }
